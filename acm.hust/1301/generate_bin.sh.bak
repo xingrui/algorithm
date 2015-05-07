@@ -1,0 +1,3 @@
+rm -rf c_test
+format_code c_test.c 
+cc     -g -Wall c_test.c   -o test_bin -lm

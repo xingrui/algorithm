@@ -1,0 +1,63 @@
+#include <iostream>
+#include <cstdio>
+using namespace std;
+int main()
+{
+    long long n;
+    char buffer[30];
+
+    while (fgets(buffer, 30, stdin)) {
+        sscanf(buffer, "%lld", &n);
+
+        if (n == 0) {
+            puts("0");
+            continue;
+        } else if (n == 1) {
+            puts("1");
+            continue;
+        }
+
+        int k = 0; //k<60
+        long long l = 2, r = 4;
+
+        while (r < n) {
+            k++;
+            l = l * 2;
+            r = r * 2;
+        }
+
+        long long pos = n - l;
+        long long len = r - l + 1;
+
+        if (pos > (len / 2)) pos = len - pos - 1;
+
+        if (pos == 0) {
+            puts("1");
+            continue;
+        }
+
+        long long vall, valr, posl, posr;
+        vall = valr = 1;
+        posl = 0;
+        posr = len - 1;
+        long long bpos = len / 2;
+        long long bval = vall + valr;
+
+        while (bpos != pos) {
+            if (pos < bpos) {
+                valr = bval;
+                posr = bpos;
+            } else if (pos > bpos) {
+                vall = bval;
+                posl = bpos;
+            }
+
+            bpos = (posl + posr) / 2;
+            bval = vall + valr;
+        }
+
+        printf("%lld\n", bval);
+    }
+
+    return 0;
+}
