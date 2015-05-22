@@ -31,8 +31,8 @@ def mul(a, b):
     r.append([0] * n)
   for i in range(n):
     for j in range(n):
-	  for k in range(n):
-	    r[i][j] += a[i][k] * b[k][j]
+      for k in range(n):
+        r[i][j] += a[i][k] * b[k][j]
   print r
   return r;
 
