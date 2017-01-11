@@ -42,7 +42,7 @@ inline uint64_t timediff_us(const struct timeval& s, const struct timeval& e)
         uint64_t time_##proc_name = timediff_us(time_start_##proc_name, time_end_##proc_name);\
         std::cout << #proc_name << ":" << time_##proc_name << "us" << std::endl;}
 
-int f1(unsigned int x)
+inline int f1(unsigned int x)
 {
     int n = 1;
 
@@ -71,19 +71,19 @@ int f1(unsigned int x)
     return 31 - n;
 }
 
-int f2(unsigned int x)
+inline int f2(unsigned int x)
 {
     return 31 - __builtin_clz(x);
 }
 
-int f3(unsigned int x)
+inline int f3(unsigned int x)
 {
     return int(trunc(log2(x)));
 }
 
 int main()
 {
-    int total_count = 10000000;
+    int total_count = 30000000;
     START_COUNT_TIME(f1);
 
     for (int i = 0; i < total_count; ++i) {
@@ -106,15 +106,19 @@ int main()
 
     END_COUNT_TIME(f3);
 
-    for (int i = 0; i < total_count; ++i) {
+    START_COUNT_TIME(diff);
+
+    for (int i = 1; i < total_count; ++i) {
         int n1 = f1(i);
-        int n2 = f1(i);
-        int n3 = f1(i);
+        int n2 = f2(i);
+        int n3 = f3(i);
 
         if (n1 != n2 || n1 != n3) {
             printf("ERROR\n");
         }
     }
+
+    END_COUNT_TIME(diff);
 
 }
 
