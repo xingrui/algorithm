@@ -160,14 +160,18 @@ int main()
     START_COUNT_TIME(ffs);
 
     for (int i = 0; i < total_count; ++i) {
-        ffs(i);
+        for (int j = 0; j < 10; ++j) {
+            ffs(j);
+        }
     }
 
     END_COUNT_TIME(ffs);
     START_COUNT_TIME(ctz);
 
     for (int i = 0; i < total_count; ++i) {
-        ctz(i);
+        for (int j = 0; j < 10; ++j) {
+            ctz(j);
+        }
     }
 
     END_COUNT_TIME(ctz);
