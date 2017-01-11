@@ -42,6 +42,72 @@ inline uint64_t timediff_us(const struct timeval& s, const struct timeval& e)
         uint64_t time_##proc_name = timediff_us(time_start_##proc_name, time_end_##proc_name);\
         std::cout << #proc_name << ":" << time_##proc_name << "us" << std::endl;}
 
+inline int ctz(unsigned int x)
+{
+    if (x == 0) return 32;
+
+    int n = 0;
+
+    if ((x & 0x0000FFFF) == 0) {
+        n += 16;
+        x >>= 16;
+    }
+
+    if ((x & 0x000000FF) == 0) {
+        n += 8;
+        x >>= 8;
+    }
+
+    if ((x & 0x0000000F) == 0) {
+        n += 4;
+        x >>= 4;
+    }
+
+    if ((x & 0x00000003) == 0) {
+        n += 2;
+        x >>= 2;
+    }
+
+    if ((x & 0x00000001) == 0) {
+        n += 1;
+    }
+
+    return n;
+}
+
+inline int f0(unsigned int x)
+{
+    int n = 1;
+
+    // if(x==0) return -1;
+    if ((x & 0xFFFF0000) == 0) {
+        n += 16;
+        x <<= 16;
+    }
+
+    if ((x & 0xFF000000) == 0) {
+        n += 8;
+        x <<= 8;
+    }
+
+    if ((x & 0xF0000000) == 0) {
+        n += 4;
+        x <<= 4;
+    }
+
+    if ((x & 0xC0000000) == 0) {
+        n += 2;
+        x <<= 2;
+    }
+
+    if ((x & 0x80000000) == 0) {
+        n += 1;
+    }
+
+    return 31 - n;
+}
+
+
 inline int f1(unsigned int x)
 {
     int n = 1;
@@ -84,6 +150,27 @@ inline int f3(unsigned int x)
 int main()
 {
     int total_count = 30000000;
+    START_COUNT_TIME(ffs);
+
+    for (int i = 0; i < total_count; ++i) {
+        ffs(i);
+    }
+
+    END_COUNT_TIME(ffs);
+    START_COUNT_TIME(ctz);
+
+    for (int i = 0; i < total_count; ++i) {
+        ctz(i);
+    }
+
+    END_COUNT_TIME(ctz);
+    START_COUNT_TIME(f0);
+
+    for (int i = 0; i < total_count; ++i) {
+        f0(i);
+    }
+
+    END_COUNT_TIME(f0);
     START_COUNT_TIME(f1);
 
     for (int i = 0; i < total_count; ++i) {
