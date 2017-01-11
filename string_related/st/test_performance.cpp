@@ -150,6 +150,13 @@ inline int f3(unsigned int x)
 int main()
 {
     int total_count = 30000000;
+    START_COUNT_TIME(__builtin_ffs);
+
+    for (int i = 0; i < total_count; ++i) {
+        __builtin_ffs(i);
+    }
+
+    END_COUNT_TIME(__builtin_ffs);
     START_COUNT_TIME(ffs);
 
     for (int i = 0; i < total_count; ++i) {
