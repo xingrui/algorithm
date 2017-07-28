@@ -24,7 +24,7 @@ int search_repeat_first(int* array, int length, int num)
         }
     }
 
-    if (low < length && array[low + 1] == num) {
+    if (low + 1 < length && array[low + 1] == num) {
         printf("found: index = %d\n", low + 1);
     } else {
         printf("not found: index(largest number not greater than input num) = %d \n", low);
