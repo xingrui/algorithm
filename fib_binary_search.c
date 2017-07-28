@@ -8,7 +8,7 @@ int array[] = { 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610,
                 267914296, 433494437, 701408733, 1134903170, 1836311903,
               };
 
-int search1(int* array, int length, int num)
+int search_repeat_first(int* array, int length, int num)
 {
     int low = -1;
     int high = length;
@@ -34,7 +34,7 @@ int search1(int* array, int length, int num)
     return 0;
 }
 
-int search2(int* array, int length, int num)
+int search_repeat_last(int* array, int length, int num)
 {
     int low = -1;
     int high = length;
@@ -68,8 +68,8 @@ int main(void)
         if (num < 0) {
             printf("%d\n", -1);
         } else {
-            search1(array, sizeof(array) / sizeof(int), num);
-            search2(array, sizeof(array) / sizeof(int), num);
+            search_repeat_first(array, sizeof(array) / sizeof(int), num);
+            search_repeat_last(array, sizeof(array) / sizeof(int), num);
         }
 
         fflush(stdout);
