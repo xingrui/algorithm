@@ -20,7 +20,7 @@ int binary_search(int* array, int length, int num)
     return low + 1;
 }
 
-int LIS(int* array, int length, int print_sub_array)
+int LIS(int* array, int length)
 {
     int* tmp_array = (int*)malloc(length * sizeof(int));
     int* mid_res_array = (int*)malloc(length * sizeof(int) * 3);
@@ -57,7 +57,37 @@ int LIS(int* array, int length, int print_sub_array)
     }
 
     printf("\n");
+    free(tmp_array);
+    free(mid_res_array);
     return current_length;
+}
+
+int LIS_normal(int* array, int length)
+{
+    int ret_len = 0;
+    int* tmp = (int*)malloc(length * sizeof(int));
+    int i, j;
+
+    for (i = 0; i < length; ++i) {
+        int max_len = 1;
+
+        for (j = 0; j < i; ++j) {
+            if (array[i] > array[j] && max_len < (tmp[j] + 1)) {
+                max_len = tmp[j] + 1;
+            }
+        }
+
+        tmp[i] = max_len;
+    }
+
+    for (i = 0; i < length; ++i) {
+        if (tmp[i] > ret_len) {
+            ret_len = tmp[i];
+        }
+    }
+
+    free(tmp);
+    return ret_len;
 }
 
 int test_binary_search()
@@ -79,7 +109,9 @@ int main()
     // int array[] = {100, 0, 1, 2, 1000, 2000, 3, 4, 5, 6, 7, 8};
     int array[] = {1, -1, 2, -3, 4, -5, 6, -7, -1, 2, -3, 4, -5, 6, -7};
     int length = sizeof(array) / sizeof(int);
-    int lis_len = LIS(array, length, 0);
+    int lis_len = LIS(array, length);
+    printf("LIS len res = %d\n", lis_len);
+    lis_len = LIS_normal(array, length);
     printf("LIS len res = %d\n", lis_len);
     return 0;
 }
