@@ -21,9 +21,7 @@ int reorder(int* array, int length)
             --j;
         }
 
-        if (i < j) {
-            swap(array + i, array + j);
-        }
+        swap(array + i, array + j);
     }
 
     return 0;
