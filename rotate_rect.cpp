@@ -38,15 +38,15 @@ private:
         res_j = j + STEP_J[direction];
     }
 private:
-    int try_move(int& i, int& j, int direction) const {
+    bool try_move(int& i, int& j, int direction) const {
         int next_i, next_j;
         move(i, j, next_i, next_j, direction);
         if (checkValid(next_i, next_j)) {
             i = next_i;
             j = next_j;
-            return 1;
+            return true;
         }
-        return 0;
+        return false;
     }
     bool checkValid(int i, int j) const {
         if (i < 0 || i >= m_row) {return false;}
