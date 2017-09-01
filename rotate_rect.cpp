@@ -39,6 +39,7 @@ private:
         res_j = j + STEP_J[direction];
     }
 private:
+    //尝试看下能否移动
     bool try_move(int& i, int& j, int direction) const {
         int next_i, next_j;
         move(i, j, next_i, next_j, direction);
