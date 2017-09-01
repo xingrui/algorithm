@@ -23,10 +23,14 @@ public:
         // 0:> 1:V 2:< 3:^
         int direction = 0;
         for (int n = 1; n <= m_row * m_column; ++n) {
+            // 设置当前单元格的值
             setData(i, j, n);
+            // 按照之前方向尝试能否移动
             if (try_move(i, j, direction)) {continue;}
+            // 换下一个方向尝试能否移动
             direction = nextDirection(direction);
             if (try_move(i, j, direction)) {continue;}
+            // 两个方向都不能移动，说明已经填满了
             break;
         }
     }
