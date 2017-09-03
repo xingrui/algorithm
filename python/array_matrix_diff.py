@@ -3,6 +3,7 @@
 from numpy import *
 
 def testMultiply():
+    print '\n******\ntestMultiply'
     testArr = array([[4,3], [2,1]])
     testMat = mat(testArr)
     print testMat, type(testMat)
@@ -14,8 +15,13 @@ def testMultiply():
     print testArr**2
 
 def testShape():
+    print '\n******\ntestShape'
     testArr = array([[1,2],[2,5]])
     testMat = mat(testArr)
+    print testArr[0,:].shape
+    print testMat[0,:].shape
+    print testArr[0,:].T.shape
+    print testMat[0,:].T.shape
     meanArr = testArr.mean(1)
     meanMat = testMat.mean(1)
     print meanArr.shape, meanMat.shape
@@ -24,7 +30,17 @@ def testShape():
     print testMat - meanMat
     print testArr.sum(1)
     print testMat.sum(1)
+    print testArr.sum(1).T
+    print testMat.sum(1).T
+
+def testSet():
+    print '\n******\ntestSet'
+    testArr = array([[1,100],[1,200],[2,100],[2,200]])
+    testMat = mat(testArr)
+    print set((testMat[:, 0].T.tolist())[0])
+    print set(testMat[:, 0])
 
 if __name__ == "__main__":
     testMultiply()
     testShape()
+    testSet()
