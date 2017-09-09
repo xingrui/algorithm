@@ -1,3 +1,5 @@
+# strongly not suggest use matrix type for vdot
+# use this way is much more proper : vdot(dataMat.A[0], dataMat.A[1])
 from numpy import *
 
 def inner_test(dataMat, t):
