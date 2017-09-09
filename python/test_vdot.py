@@ -3,13 +3,15 @@ from numpy import *
 def inner_test(dataMat, t):
     dataMat = dataMat.astype(t)
     try:
-        vdot(dataMat[0], dataMat[1])
+        res1 = vdot(dataMat[0], dataMat[1])
+        res2 = vdot(dataMat.A[0], dataMat.A[1])
+        print res1, res2, type(res1), type(res2)
         return 0
     except ValueError,e:
         return 1
 
 def test_vdots():
-    dataMat = mat(ones((5,5)))
+    dataMat = 2 * mat(ones((5,5)))
     type_list = ['int', 'int8', 'int16', 'int32', 'int64', 'float', 'float16', 'float32','float64','float128', 'complex', 'complex64', 'complex128', 'complex256']
     res_list = [[],[]]
     for t in type_list:
