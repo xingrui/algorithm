@@ -40,7 +40,55 @@ def testSet():
     print set((testMat[:, 0].T.tolist())[0])
     print set(testMat[:, 0])
 
-if __name__ == "__main__":
+def testMatOp():
+    print '\n******\ntestMatOp'
+    testArr = array([[1,100],[1,200],[2,100],[2,200]])
+    testMat = mat(testArr)
+    print testMat
+    print testMat[:,1]
+    print testMat[:,1] > 150
+    print nonzero(testMat[:,1] > 150)
+    print type(nonzero(testMat[:,1] > 150))
+    print type(nonzero(testMat[:,1] > 150)[0])
+    print nonzero(testMat[:,1] > 150)[0]
+    print type(testMat[nonzero(testMat[:,1] > 150)[0],:])
+    print testMat[nonzero(testMat[:,1] > 150)[0],:].shape
+
+def testArrOp():
+    print '\n******\ntestArrOp'
+    testArr = array([[1,100],[1,200],[2,100],[2,200]])
+    print testArr
+    print testArr[:,1]
+    print testArr[:,1] > 150
+    print nonzero(testArr[:,1] > 150)
+    print nonzero(testArr[:,1] > 150)[0]
+    print type(nonzero(testArr[:,1] > 150))
+    print type(nonzero(testArr[:,1] > 150)[0])
+    print testArr[nonzero(testArr[:,1] > 150)[0],:]
+
+def testNonZero():
+    print '\n******\ntestNonZeros'
+    testArr = array([[1,100],[1,200],[2,100],[2,200]])
+    testMat = mat(testArr)
+    print nonzero(testMat[:,1])
+    print testMat[nonzero(testMat[:,1])]
+    print testMat[mat([[0],[1]]),mat([[0],[1]])]
+    print testMat[mat([[1,2],[1,2]])]
+    print testMat[nonzero(testMat[:,1])].shape
+    print testMat[nonzero(testMat.A[:,1])[0]].shape
+    print testMat[nonzero(testMat[:,1])[0]].T.shape
+    print nonzero(testArr)
+    print testArr[nonzero(testArr)]
+    print testArr[nonzero(testArr)].shape
+
+def main():
+    testMatOp()
+    testArrOp()
+    testNonZero()
+    return
     testMultiply()
     testShape()
     testSet()
+
+if __name__ == "__main__":
+    main()
