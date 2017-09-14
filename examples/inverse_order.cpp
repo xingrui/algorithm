@@ -43,7 +43,7 @@ int count_inverse(int* a, int left, int right, int* aid_array)
     int count3 = 0;
 
     while (true) {
-        if (a[i] < a[j]) {
+        if (a[i] <= a[j]) {
             if (++i == middle) break;
         } else if (a[i] > a[j]) {
             count3 += middle - i;
@@ -60,7 +60,7 @@ int count_inverse(int* a, int left, int right, int* aid_array)
 int main()
 {
     // int array[] = {5, 4, 3, 2, 1, 0, -1};
-    int array[] = {7, 1, 2, 3, 4, 5, 6};
+    int array[] = {7, 1, 2, 3, 4, 5, 6, 7, 7, 7,};
     int length = sizeof(array) / sizeof(int);
     int* aid_array = new int[length];
     int count = count_inverse(array, 0, length, aid_array);
