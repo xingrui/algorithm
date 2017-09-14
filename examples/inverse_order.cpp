@@ -45,7 +45,7 @@ int count_inverse(int* a, int left, int right, int* aid_array)
     while (true) {
         if (a[i] <= a[j]) {
             if (++i == middle) break;
-        } else if (a[i] > a[j]) {
+        } else {
             count3 += middle - i;
 
             if (++j == right) break;
