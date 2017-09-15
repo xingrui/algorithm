@@ -31,8 +31,7 @@ void extendKMPNext(const char* pattern, int* next, int length)
         if (next[index - sumMaxIndex] + index < maxSearchLength)
             next[index] = next[index - sumMaxIndex];
         else {
-            matchedIndex = (0 > maxSearchLength - index) ? 0 : maxSearchLength
-                    - index;
+            matchedIndex = (0 > maxSearchLength - index) ? 0 : maxSearchLength - index;
 
             while (index + matchedIndex < length && pattern[matchedIndex]
                     == pattern[index + matchedIndex])
@@ -61,9 +60,7 @@ int main()
         extendKMPNext(buffer, extend, len);
 
         for (i = 1; i < len; ++i) {
-            if (i + extend[i] == len) {
-                break;
-            }
+            if (i + extend[i] == len) break;
         }
 
         printf("%d\n", i);
