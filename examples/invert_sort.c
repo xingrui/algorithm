@@ -53,6 +53,7 @@ int indent(int count) {
 	int index = 0;
 	while (index++ < count)
 		printf("\t");
+    return 0;
 }
 
 int calculate(int *array, int length, int count) {
