@@ -20,7 +20,26 @@ int binary_search(int* array, int length, int num)
     return low + 1;
 }
 
-int LIS(int* array, int length)
+int LIS_without_print(int* array, int length)
+{
+    int* tmp_array = (int*)malloc(length * sizeof(int));
+    int current_length = 0;
+    int i = 0;
+
+    for (i = 0; i < length; ++i) {
+        int current_num = array[i];
+        int search_res = binary_search(tmp_array, current_length, current_num);
+        tmp_array[search_res] = array[i];
+
+        if (search_res == current_length) {
+            ++current_length;
+        }
+    }
+
+    return current_length;
+}
+
+int LIS_with_print(int* array, int length)
 {
     int* tmp_array = (int*)malloc(length * sizeof(int));
     int* mid_res_array = (int*)malloc(length * sizeof(int) * 3);
@@ -109,7 +128,7 @@ int main()
     // int array[] = {100, 0, 1, 2, 1000, 2000, 3, 4, 5, 6, 7, 8};
     int array[] = {1, -1, 2, -3, 4, -5, 6, -7, -1, 2, -3, 4, -5, 6, -7};
     int length = sizeof(array) / sizeof(int);
-    int lis_len = LIS(array, length);
+    int lis_len = LIS_without_print(array, length);
     printf("LIS len res = %d\n", lis_len);
     lis_len = LIS_normal(array, length);
     printf("LIS len res = %d\n", lis_len);
