@@ -21,6 +21,15 @@ def loop():
     for x in ARR:
         res.append(x+1)
 
+def map_lambda_float():
+    map(lambda x:float(x), ARR)
+
+def map_float():
+    map(float, ARR)
+
+def lst_float():
+    [float(x) for x in ARR]
+
 dis.dis(tmap)
 print '******************'
 dis.dis(tlst)
@@ -30,3 +39,8 @@ dis.dis(loop)
 test(tmap, "map") 
 test(tlst, "lst")
 test(loop, "loop")
+
+
+test(map_lambda_float, "map_lambda_float") 
+test(map_float, "map_float")
+test(lst_float, "lst_float")
