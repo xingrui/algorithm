@@ -36,6 +36,7 @@ int LIS_without_print(int* array, int length)
         }
     }
 
+    free(tmp_array);
     return current_length;
 }
 
