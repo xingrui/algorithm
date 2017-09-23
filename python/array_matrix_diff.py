@@ -13,6 +13,9 @@ def testSquare():
     # square will always use element square.
     assert (square(testArr) == testArr).all()
     assert (square(testMat) == testMat).all()
+    # power 2 will always use element square.
+    assert (power(testArr,2) == testArr).all()
+    assert (power(testMat,2) == testMat).all()
     print 'testSquare passed.'
 
 def testMultiply():
