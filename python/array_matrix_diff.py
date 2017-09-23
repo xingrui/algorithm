@@ -2,6 +2,19 @@
 #matrix only can be 2 dimensions including not final reduce functions, eg : sum, avg
 from numpy import *
 
+def testSquare():
+    print 'testSquare begin.'
+    testArr = array([[1,1],[1,1]])
+    testMat = mat(testArr)
+    # ** 2 will not always use element square.
+    assert (testArr ** 2 == testArr).all()
+    assert (testMat ** 2 != testMat).all()
+    assert (testMat ** 2 == 2 * testMat).all()
+    # square will always use element square.
+    assert (square(testArr) == testArr).all()
+    assert (square(testMat) == testMat).all()
+    print 'testSquare passed.'
+
 def testMultiply():
     print '\n******\ntestMultiply'
     testArr = array([[4,3], [2,1]])
@@ -82,10 +95,10 @@ def testNonZero():
     print testArr[nonzero(testArr)].shape
 
 def main():
+    testSquare()
     testMatOp()
     testArrOp()
     testNonZero()
-    return
     testMultiply()
     testShape()
     testSet()
