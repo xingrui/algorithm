@@ -3,32 +3,41 @@
 #include <iostream>
 #include <cstdio>
 
+bool binary_search(int *array, int length, int num) {
+    int low = -1;
+    int high = length;
+    while (high - low > 1) {
+        int rlen = high - low;
+        int probe = low + rlen / 2;
+        if (array[probe] < num) {
+            low = probe;
+        } else {
+            high = probe;
+        }
+    }
+    return high != length && array[high] == num;
+}
+
 bool circular_search(int* array, int length, int num) {
-    if (length == 0) return false;
+    if (length <= 0) return false;
     if (length == 1) return array[0] == num;
     int middle = length / 2 - 1;
     if (array[middle] == num) return true;
     //printf("middle:%d array[middle]:%d length:%d\n", middle, array[middle], length);
-    bool in_left_part = true;
     if (array[0] <= array[middle]) {
         // 左半部分有序
         if (array[0] > num || array[middle] < num) {
-            in_left_part = false;
+            return circular_search(array + length / 2, length - length / 2, num);
         } else {
-            in_left_part = true;
+            return binary_search(array, length / 2, num);
         }
     } else {
         // 右半部分有序
         if (array[middle] > num || array[length - 1] < num) {
-            in_left_part = true;
+            return circular_search(array, length / 2, num);
         } else {
-            in_left_part = false;
+            return binary_search(array + length / 2, length - length / 2, num);
         }
-    }
-    if (in_left_part) {
-        return circular_search(array, length / 2, num);
-    } else {
-        return circular_search(array + length / 2, length - length / 2, num);
     }
 }
 
