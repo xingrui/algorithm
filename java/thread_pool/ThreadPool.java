@@ -169,7 +169,6 @@ public final class ThreadPool {
                 }
 
                 finished_task++;
-                r = null;
             }
         }
 
