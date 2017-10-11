@@ -44,7 +44,6 @@ bool circular_search(int* array, int length, int num) {
 int main() {
     int array[] = {8,9,1,3,5,7};
     int length = sizeof(array) / sizeof(int);
-    circular_search(array, length, 9);
     for (int i = 0; i < 11; ++i) {
         std::cout << i << " " << circular_search(array, length, i) << std::endl;
     }
