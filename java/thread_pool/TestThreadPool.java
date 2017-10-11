@@ -16,7 +16,8 @@ public class TestThreadPool {
     static class Task implements Runnable {
         private static volatile int i = 1;
         private int task_no;
-        public Task() {
+        public Task()
+        {
             task_no = i++;
         }
 
@@ -24,6 +25,7 @@ public class TestThreadPool {
         public void run()  // 执行任务
         {
             System.out.println("任务 " + task_no + " 开始");
+
             try {
                 Thread.sleep((6 - task_no) * 1000);
             } catch (InterruptedException e) {

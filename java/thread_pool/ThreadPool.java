@@ -8,32 +8,7 @@ import java.util.List;
 public final class ThreadPool {
     // 线程池中默认线程的个数为5
     private static final int DEFAULT_WORKER_NUM = 5;
-    private int worker_num = 5;
-    // 工作线程
-    private WorkThread[] workThrads;
-    // 未处理的任务
-    private static volatile int finished_task = 0;
-    // 任务队列，作为一个缓冲,Queue线程不安全
-    private Queue<Runnable> taskQueue = new LinkedList<Runnable>();
     private static ThreadPool threadPool;
-
-    // 创建具有默认线程个数的线程池
-    private ThreadPool()
-    {
-        this(DEFAULT_WORKER_NUM);
-    }
-
-    // 创建线程池,worker_num为线程池中工作线程的个数
-    private ThreadPool(int worker_num)
-    {
-        this.worker_num = worker_num;
-        workThrads = new WorkThread[worker_num];
-
-        for (int i = 0; i < worker_num; i++) {
-            workThrads[i] = new WorkThread();
-            workThrads[i].start();// 开启线程池中的线程
-        }
-    }
 
     // 单态模式，获得一个默认线程个数的线程池
     public static ThreadPool getThreadPool()
@@ -52,6 +27,33 @@ public final class ThreadPool {
             threadPool = new ThreadPool(worker_num1);
 
         return threadPool;
+    }
+    
+    // 下面是成员变量和成员函数
+    private int worker_num;
+    // 工作线程
+    private WorkThread[] workThrads;
+    // 未处理的任务
+    private volatile int finished_task = 0;
+    // 任务队列，作为一个缓冲,Queue线程不安全
+    private Queue<Runnable> taskQueue = new LinkedList<Runnable>();
+
+    // 创建具有默认线程个数的线程池
+    private ThreadPool()
+    {
+        this(DEFAULT_WORKER_NUM);
+    }
+
+    // 创建线程池,worker_num为线程池中工作线程的个数
+    private ThreadPool(int worker_num)
+    {
+        this.worker_num = worker_num;
+        workThrads = new WorkThread[worker_num];
+
+        for (int i = 0; i < worker_num; i++) {
+            workThrads[i] = new WorkThread();
+            workThrads[i].start();// 开启线程池中的线程
+        }
     }
 
     // 执行任务,其实只是把任务加入任务队列，什么时候执行由线程池管理器决定
