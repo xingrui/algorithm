@@ -23,7 +23,6 @@ bool circular_search(int* array, int length, int num) {
     if (length == 1) return array[0] == num;
     int middle = length / 2 - 1;
     if (array[middle] == num) return true;
-    //printf("middle:%d array[middle]:%d length:%d\n", middle, array[middle], length);
     if (array[0] <= array[middle]) {
         // 左半部分有序
         if (array[0] > num || array[middle] < num) {
