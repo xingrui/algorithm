@@ -10,7 +10,7 @@
 
 #include<cstdlib>
 #include<iostream>
-using namespace std;
+using std::cout;
 #define MAX_SIZE 10000
 int array[MAX_SIZE];
 float t[MAX_SIZE];
