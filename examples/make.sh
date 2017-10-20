@@ -1,5 +1,5 @@
 mkdir -p bin
-for file in *.c *.cpp
+for file in *.cpp
 do
     echo "compile ${file}"
     exe_file_name=$(echo ${file%.*})
