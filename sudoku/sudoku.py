@@ -75,7 +75,7 @@ class Solution(object):
         """
         while True:
             if not self.isValidSudoku(board): return
-            print("*" * 80)
+            #print("*" * 80)
             possibleList, hasBlank, failed = self.getPossibleList(board)
             can_continue = False
             min_len = 9
@@ -88,12 +88,8 @@ class Solution(object):
                         m[l] = m.get(l, []) + [[i,j]]
                     if(l < min_len and l > 0): min_len = l
                     if(len(possibleList[i][j]) == 1):
-                        print(i,j,possibleList[i][j])
                         board[i][j]=possibleList[i][j][0]
                         can_continue = True
-            for k in sorted(m.keys()):
-                print(k, m[k])
-            print(min_len)
             time.sleep(0.1)
             if not can_continue: break
         print("solved\n" + "\n".join([" ".join(line) for line in board]))
@@ -104,18 +100,18 @@ class Solution(object):
         """
         while True:
             if not self.isValidSudoku(board): 
-                print('not valid sudoku', level)
-                return False
+                #print('not valid sudoku', level)
+                return 0
             #time.sleep(0.01)
-            print("*" * 80)
-            print("level:{}".format(level))
+            #print("*" * 80)
+            #print("level:{}".format(level))
             possibleList, hasBlank, failed = self.getPossibleList(board)
             if failed:
-                print("failed\n" + "\n".join([" ".join(line) for line in board]))
-                return False
+                #print("failed\n" + "\n".join([" ".join(line) for line in board]))
+                return 0
             if not hasBlank: 
-                print("solved\n" + "\n".join([" ".join(line) for line in board]))
-                return True
+                #print("solved\n" + "\n".join([" ".join(line) for line in board]))
+                return 1
             min_len = 9
             m = {}
             fill_list = []
@@ -129,34 +125,54 @@ class Solution(object):
                         fill_list.append((i, j, possibleList[i][j][0]))
                         board[i][j]=possibleList[i][j][0]
             if(len(m)) == 0: 
-                print("failed", level)
-                return False
+                return 0
             for k in sorted(m.keys()):
                 pass
                 #print(k, m[k])
             min_key = sorted(m.keys())[0]
             if min_key == 1: 
-                print(fill_list)
-                print("\n".join([" ".join(line) for line in board]))
                 continue
             select = m[min_key][0]
+            valid_count = 0
             for value in possibleList[select[0]][select[1]]:
                 new_board = copy.deepcopy(board)
                 new_board[select[0]][select[1]] = value
-                print("fill[{},{}] with {} level:{}\n".format(select[0], select[1], value, level) + str(possibleList[select[0]][select[1]]) + "\n" + "\n".join([" ".join(line) for line in new_board]))
-                if self.solveSudokuNew(new_board, level + 1):
-                    return True
-                else:
-                    print("failed level:{}".format(level))
-            break
+                #print("fill[{},{}] with {} level:{}\n".format(select[0], select[1], value, level) + str(possibleList[select[0]][select[1]]) + "\n" + "\n".join([" ".join(line) for line in new_board]))
+                cnt = self.solveSudokuNew(new_board, level + 1)
+                valid_count += cnt
+            return valid_count
+
+def init_board():
+    return [["5","3",".",".","7",".",".",".","."],["6",".",".","1","9","5",".",".","."],[".","9","8",".",".",".",".","6","."],["8",".",".",".","6",".",".",".","3"],["4",".",".","8",".","3",".",".","1"],["7",".",".",".","2",".",".",".","6"],[".","6",".",".",".",".","2","8","."],[".",".",".","4","1","9",".",".","5"],[".",".",".",".","8",".",".","7","9"]]
+    board = []
+    board.append(["8", ".", ".", ".", ".", ".", ".", ".", "."])
+    board.append([".", ".", "3", "6", ".", ".", ".", ".", "."])
+    board.append([".", "7", ".", ".", "9", ".", "2", ".", "."])
+    board.append([".", "5", ".", ".", ".", "7", ".", ".", "."])
+    board.append([".", ".", ".", ".", "4", "5", "7", ".", "."])
+    board.append([".", ".", ".", "1", ".", ".", ".", "3", "."])
+    board.append([".", ".", "1", ".", ".", ".", ".", "6", "8"])
+    board.append([".", ".", "8", "5", ".", ".", ".", "1", "."])
+    board.append([".", "9", ".", ".", ".", ".", "4", ".", "."])
+    return board
 
 def main():
     s = Solution()
+    board = init_board()
+    print(s.solveSudokuNew(board))
+    for i in range(0,9):
+        for j in range(0,9):
+            board = init_board()
+            if board[i][j] == '.':continue
+            board[i][j] = '.'
+            print(i,j,s.solveSudokuNew(board))
+    return
     board1 = [["5","3",".",".","7",".",".",".","."],["6",".",".","1","9","5",".",".","."],[".","9","8",".",".",".",".","6","."],["8",".",".",".","6",".",".",".","3"],["4",".",".","8",".","3",".",".","1"],["7",".",".",".","2",".",".",".","6"],[".","6",".",".",".",".","2","8","."],[".",".",".","4","1","9",".",".","5"],[".",".",".",".","8",".",".","7","9"]]
-    #print(s.isValidSudoku(board1))
+    print(s.isValidSudoku(board1))
     board2 = [["8","3",".",".","7",".",".",".","."],["6",".",".","1","9","5",".",".","."],[".","9","8",".",".",".",".","6","."],["8",".",".",".","6",".",".",".","3"],["4",".",".","8",".","3",".",".","1"],["7",".",".",".","2",".",".",".","6"],[".","6",".",".",".",".","2","8","."],[".",".",".","4","1","9",".",".","5"],[".",".",".",".","8",".",".","7","9"]]
-    #print(s.isValidSudoku(board2))
-    #print(s.solveSudoku(board1))
+    print(s.isValidSudoku(board2))
+    #print(s.solveSudokuNew(board1))
+    #print(s.solveSudokuNew(board2))
     board3 = []
     board3.append([".", "1", ".", ".", "7", "6", ".", ".", "."])
     board3.append(["8", ".", "5", ".", ".", ".", "3", ".", "."])
@@ -181,6 +197,8 @@ def main():
     board5.append([".", ".", "6", ".", ".", ".", "7", "8", "."])
     board5.append([".", ".", ".", ".", "5", "4", ".", ".", "."])
     board5.append([".", ".", ".", "9", ".", ".", ".", ".", "."])
+    print(s.solveSudokuNew(board5))
+    board5[8][3]='.'
     print(s.solveSudokuNew(board5))
     board4 = []
     board4.append([".", ".", ".", ".", ".", ".", ".", ".", "."])
